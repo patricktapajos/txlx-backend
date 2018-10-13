@@ -26,10 +26,10 @@ use Slim\Middleware\JwtAuthentication as JWT;
 // ]));
 
 //Enable CORS
-/*$app->add(function ($request, $response, $next) {
+$app->add(function ($request, $response, $next) {
     $response = $next($request, $response);
     return $response
             ->withHeader('Access-Control-Allow-Origin', '*')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-});*/
+});
