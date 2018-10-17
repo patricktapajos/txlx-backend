@@ -1,9 +1,62 @@
 <?php 
 	class Cadastro extends Illuminate\Database\Eloquent\Model {
-		protected $table = "trsd_cadastro";
+		protected $table = "TRSD_CADASTRO";
+		public $timestamps = false;
 		public $rules = [
-			'cad_cpf' => 'required',
-			'cad_nome' => 'required',
+			'MATRICULA_IPTU' => 'required',
+			'CPF' => 'required',
+			'NOME_DECLARANTE' => 'required',
+			'CPF_DECLARANTE' => 'required',
+			'FAIXA_GERACAO' => 'required',
+			'TIPO_USO' => 'required',
+			'QTD_PESSOAS' => 'required'
 		];
-		protected $fillable = ['cad_cpf','cad_nome'];
+		public $messages = [
+			'MATRICULA_IPTU.required' => 'Matrícula obrigatória',
+			'CPF.required' => 'CPF obrigratório',
+			'NOME_DECLARANTE.required' => 'Nome do Declarante obrigatório',
+			'CPF_DECLARANTE.required' => 'CPF do Declarante obrigatório',
+			'FAIXA_GERACAO.required' => 'Faixa de Geração obrigatória',
+			'TIPO_USO.required' => 'Tipo de Uso obrigatório',
+			'QTD_PESSOAS.required' => 'Qauntidade de Pessoas obrigatória'
+		];
+		protected $fillable = [
+			'MATRICULA_IPTU',
+			'CPF',
+			'NOME_DECLARANTE',
+			'CPF_DECLARANTE',
+			'FAIXA_GERACAO',
+			'TIPO_USO',
+			'QTD_PESSOAS',
+			'EMAIL',
+			'TELEFONE',
+			'LOGRADOURO',
+			'COMPLEMENTO',
+			'NUMERO',
+			'BAIRRO',
+			'CEP',
+			'CIDADE',
+			'DATA_CADASTRO',
+			'ANO'
+		];
+
+		protected $casts = [
+			'MATRICULA_IPTU'=>'int',
+			'CPF'=>'string',
+			'NOME_DECLARANTE'=>'string',
+			'CPF_DECLARANTE'=>'string',
+			'FAIXA_GERACAO'=>'string',
+			'TIPO_USO'=>'string',
+			'QTD_PESSOAS'=>'string',
+			'EMAIL'=>'string',
+			'TELEFONE'=>'string',
+			'LOGRADOURO'=>'string',
+			'COMPLEMENTO'=>'string',
+			'NUMERO'=>'int',
+			'BAIRRO'=>'string',
+			'CEP'=>'string',
+			'CIDADE'=>'string',
+			'DATA_CADASTRO',
+			'ANO'=>'int'
+		];
 	}
