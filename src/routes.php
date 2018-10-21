@@ -13,9 +13,17 @@ use Illuminate\Validation\Factory;
 require '/models/Cadastro.php';
 
 // Routes
-$app->get('/[{name}]', function (Request $request, Response $response, array $args) {
+/*$app->get('/[{name}]', function (Request $request, Response $response, array $args) {
     $this->logger->info("Slim-Skeleton '/' route");
     return $this->renderer->render($response, 'index.phtml', $args);
+});*/
+
+$app->get('/tipousoimovel', function (Request $request, Response $response) {
+    $query = Capsule::table('VW_TIPOUSO_IMOVEL')
+        ->select(['ID','DESCRICAO']);
+
+    $return = $query->get();
+    return $response->withJson( $return );
 });
 
 // Método para identificar o contribuinte na base de dados do STM
@@ -27,16 +35,10 @@ $app->post('/identificar', function (Request $request, Response $response){
     $numero = preg_replace('/[^0-9]/', '', $data['matricula']);
     $cpf = preg_replace('/[^0-9]/', '', $data['cpf']);
 
-    /*$query = Capsule::table('VW_MATRICULA')
-        ->select('CTIMATRICULA, CTGCPF, LOGRNOME, ENDLOGRTIPO, ECOCOMPLEMENTO, ECONUMERO, BAINOME, ECOCEP, ECOCIDNOME')
+    $query = Capsule::table('VW_CADASTRO_STM')
+        ->select('MATRICULA, CPF')
         ->where([
-           ['CTIMATRICULA', '=', $numero],
-           ['CTGCPF', '=', $cpf]
-        ]);*/
-    $query = Capsule::table('VW_MATRICULA')
-        ->select('NUMERO, CPF')
-        ->where([
-            ['NUMERO', '=', $numero],
+            ['MATRICULA', '=', $numero],
             ['CPF', '=', $cpf]
     ]);
 
@@ -44,7 +46,6 @@ $app->post('/identificar', function (Request $request, Response $response){
 
     if($resultado > 0){
         $return['success'] = 1;
-        //$return['dados'] = $query->get();
     }else{
         $return['msgErro'] = 'Registro(s) com estes dados não encontrado(s).';
     }
@@ -57,10 +58,12 @@ $app->post('/identificar', function (Request $request, Response $response){
 $app->post('/cadastrar', function (Request $request, Response $response){
     $return = array('success'=>0);
     $data = $request->getParsedBody();
+    $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
+    $cpf = preg_replace('/[^0-9]/', '', $data['CPF']);
     // Ou utilizar o id
     $cadastrado = Cadastro::where([
-        ['CPF', '=', $data['CPF']],
-        ['MATRICULA_IPTU', '=', $data['MATRICULA_IPTU']],
+        ['CPF', '=', $cpf],
+        ['MATRICULA_IPTU', '=', $matricula],
         ['ANO', '=', date('Y')]
     ])->first();
 
@@ -70,18 +73,9 @@ $app->post('/cadastrar', function (Request $request, Response $response){
     $validation = new Factory($translator, new Container);
 
     try{
-        //updateOrCreate
         if(!$cadastrado){
             $cadastro = new Cadastro;
             $cadastro->ANO = date('Y');
-            
-            /*$query = Capsule::table('VW_MATRICULA')
-            ->select('CTIMATRICULA, CTGCPF, LOGRNOME, ENDLOGRTIPO, ECOCOMPLEMENTO, ECONUMERO, BAINOME, ECOCEP, ECOCIDNOME')
-            ->where([
-            ['CTIMATRICULA', '=', $numero],
-            ['CTGCPF', '=', $cpf]
-            ]);*/
-
         }else{
             $cadastro = $cadastrado;
         }
@@ -120,15 +114,29 @@ $app->post('/cadastrar', function (Request $request, Response $response){
 
 $app->post('/consultar', function (Request $request, Response $response){
     $data = $request->getParsedBody();
+    $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
+    $cpf = preg_replace('/[^0-9]/', '', $data['CPF']);
     $cadastrado = Cadastro::where([
-        ['CPF', '=', $data['CPF']],
-        ['MATRICULA_IPTU', '=', $data['MATRICULA_IPTU']],
+        ['CPF', '=', $cpf],
+        ['MATRICULA_IPTU', '=', $matricula],
         ['ANO', '=', date('Y')]
     ])->first();
 
     $return = null;
+
+    //Se encontra não registro na base de dados do TRSD, retorna dados do STM
+    
     if($cadastrado){
         $return = $cadastrado->toArray();
+    }else{
+        $query = Capsule::table('VW_CADASTRO_STM')
+            ->select(['MATRICULA', 'CPF', 'LOGRADOURO', 'TIPOLOGRADOURO', 'COMPLEMENTO', 'NUMERO', 'BAIRRO', 'CEP', 'CIDADE','TIPO_USO'])
+            ->where([
+            ['MATRICULA', '=', $matricula],
+            ['CPF', '=', $cpf]
+        ]);
+
+        $return = $query->get()[0];
     }
 
     return $response->withJson( $return );
