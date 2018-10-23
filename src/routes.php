@@ -112,20 +112,29 @@ $app->post('/cadastrar', function (Request $request, Response $response){
 
 });
 
+
+/*
+   Método para consultar o contribuinte na base de dados
+ - Verifica se o contribuinte já tem cadastro (do ano corrente ou ano anterior) na base de dados do TRSD,
+   caso não tenha, pega os dados do STM para um novo cadastro.
+ */
+
 $app->post('/consultar', function (Request $request, Response $response){
     $data = $request->getParsedBody();
     $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
     $cpf = preg_replace('/[^0-9]/', '', $data['CPF']);
+    
     $cadastrado = Cadastro::where([
         ['CPF', '=', $cpf],
-        ['MATRICULA_IPTU', '=', $matricula],
-        ['ANO', '=', date('Y')]
-    ])->first();
+        ['MATRICULA_IPTU', '=', $matricula]
+    ])->where(function($q){
+        $q->where(['ANO', '=', date('Y')])
+        ->orWhere(['ANO', '=', date('Y')-1]);
+    })->first();
 
     $return = null;
 
-    //Se encontra não registro na base de dados do TRSD, retorna dados do STM
-    
+    //Se encontra não registro na base de dados do TRSD, retorna dados do STM 
     if($cadastrado){
         $return = $cadastrado->toArray();
     }else{
