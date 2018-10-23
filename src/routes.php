@@ -58,6 +58,7 @@ $app->post('/identificar', function (Request $request, Response $response){
 $app->post('/cadastrar', function (Request $request, Response $response){
     $return = array('success'=>0);
     $data = $request->getParsedBody();
+
     $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
     $cpf = preg_replace('/[^0-9]/', '', $data['CPF']);
     // Ou utilizar o id
@@ -80,10 +81,10 @@ $app->post('/cadastrar', function (Request $request, Response $response){
             $cadastro = $cadastrado;
         }
 
-        $cadastro->MATRICULA_IPTU = $data['MATRICULA_IPTU'];
-        $cadastro->CPF = $data['CPF'];
+        $cadastro->MATRICULA_IPTU = $matricula;
+        $cadastro->CPF = $cpf;
         $cadastro->NOME_DECLARANTE = $data['NOME_DECLARANTE'];
-        $cadastro->CPF_DECLARANTE = $data['CPF_DECLARANTE'];
+        $cadastro->CPF_DECLARANTE = preg_replace('/[^0-9]/', '', $data['CPF_DECLARANTE']);
         $cadastro->FAIXA_GERACAO = $data['FAIXA_GERACAO'];
         $cadastro->TIPO_USO = $data['TIPO_USO'];
         $cadastro->QTD_PESSOAS = $data['QTD_PESSOAS'];
@@ -128,8 +129,8 @@ $app->post('/consultar', function (Request $request, Response $response){
         ['CPF', '=', $cpf],
         ['MATRICULA_IPTU', '=', $matricula]
     ])->where(function($q){
-        $q->where(['ANO', '=', date('Y')])
-        ->orWhere(['ANO', '=', date('Y')-1]);
+        $q->where('ANO', date('Y'))
+        ->orWhere('ANO', date('Y')-1);
     })->first();
 
     $return = null;
