@@ -11,7 +11,7 @@ use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\Factory;
 use Firebase\JWT\JWT;
 
-require '/models/Cadastro.php';
+require __DIR__ . '/../src/models/Cadastro.php';
 
 // Routes
 /*$app->get('/[{name}]', function (Request $request, Response $response, array $args) {
