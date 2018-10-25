@@ -9,6 +9,7 @@ use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\DatabasePresenceVerifier;
 use Illuminate\Validation\Factory;
+use Firebase\JWT\JWT;
 
 require '/models/Cadastro.php';
 
@@ -17,6 +18,17 @@ require '/models/Cadastro.php';
     $this->logger->info("Slim-Skeleton '/' route");
     return $this->renderer->render($response, 'index.phtml', $args);
 });*/
+
+$app->get('/authtrsdtoken', function (Request $request, Response $response) use ($app) {
+    $key = env('JWT_KEY', '');
+    $token = array(
+        "user" => "@trsd",
+        "github" => "https://gitlab.manaus.am.gov.br/SEMEF/gesisp/sistemas/txlx-backend.git"
+    );
+    $jwt = JWT::encode($token, $key);
+    return $response->withJson(["auth-jwt" => $jwt], 200)
+        ->withHeader('Content-type', 'application/json');   
+});
 
 $app->get('/tipousoimovel', function (Request $request, Response $response) {
     $query = Capsule::table('VW_TIPOUSO_IMOVEL')
@@ -32,13 +44,13 @@ $app->post('/identificar', function (Request $request, Response $response){
     $return = array('success'=>0);
     $data = $request->getParsedBody();
     
-    $numero = preg_replace('/[^0-9]/', '', $data['matricula']);
-    $cpf = preg_replace('/[^0-9]/', '', $data['cpf']);
+    $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
+    $cpf = preg_replace('/[^0-9]/', '', $data['CPF']);
 
     $query = Capsule::table('VW_CADASTRO_STM')
         ->select('MATRICULA, CPF')
         ->where([
-            ['MATRICULA', '=', $numero],
+            ['MATRICULA', '=', $matricula],
             ['CPF', '=', $cpf]
     ]);
 

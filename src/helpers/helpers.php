@@ -10,6 +10,6 @@ class helpers {
     	$return = $data;
     	$return['success'] = 1;
     }
-    return $response->withJson( $return );
+    return $response->withJson( $return, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
   }
 }
