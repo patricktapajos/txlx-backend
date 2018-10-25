@@ -10,6 +10,7 @@ $app->add(new JWT([
     "regexp" => "/(.*)/",
     "realm" => "Protected", 
     "secret" => env('JWT_KEY',''),
+    "secure" => false,
     "rules" => [
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
             "path" => "/",
