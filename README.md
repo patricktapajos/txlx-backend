@@ -1,27 +1,28 @@
-# Slim Framework 3 Skeleton Application
+# Taxa de Resíduos de Sólidos Domésticos
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
+> Back-end para o sistema de declaração de resíduos sólidos domésticos. Link para o sistema http://chibarro.manaus.am.gov.br/trsd-back.
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+## Sobre o Sistema
+O sistema nomeado TRSD (Taxa de Resíduos Sólidos Domésticos) tem como objetivo obter dados da quantidade de resíduos sólidos gerados por um imóvel (residencial ou misto) para posterior taxação. É disponibilizado um formulário onde o contribuinte preenche alguns dados como seu endereço, o tipo de uso do imóvel que reside e a quantidade média de resíduos sólidos (lixo) que gera.
 
-## Install the Application
+O sistema contempla apenas a identificação do imóvel e do contribuinte (tela de identificação), preenchimento de dados em um formulário (cadastro) e impressão de um comprovante do cadastro.
 
-Run this command from the directory in which you want to install your new Slim Framework application.
+## Implementação
+Para a implementação foi utilizado o framework Slim PHP (https://www.slimframework.com/).
+Destaque para a utilização do JWT (https://jwt.io/) para incrmentar a segurança das requisições do cliente.
+As demais dependências encontram-se no arquivo de configuração package.json.
 
-    php composer.phar create-project slim/slim-skeleton [my-app-name]
+## Deployment
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+``` bash
+# Instalação de dependências
+composer install
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writeable.
+# Para execução no ambiente de desenvolvimento
 
-To run the application in development, you can run these commands 
+> O comando a seguir inicia o servidor embutido no framework Slim. Sua utilização é facultativa.
+cd [txlx-backend]; 
+php -S localhost:8080 -t public public/index.php
 
-	cd [my-app-name]
-	php composer.phar start
-
-Run this command in the application directory to run the test suite
-
-	php composer.phar test
-
-That's it! Now go build something cool.
+# Para execução no ambiente de homologação/produção
+Apenas descarregue os arquivos no diretório do servidor web.
