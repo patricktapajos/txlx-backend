@@ -45,13 +45,13 @@ $app->post('/identificar', function (Request $request, Response $response){
     $data = $request->getParsedBody();
     
     $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
-    $cpf = preg_replace('/[^0-9]/', '', $data['CPF']);
+    $cpfcnpj = preg_replace('/[^0-9]/', '', $data['CPFCNPJ']);
 
     $query = Capsule::table('VW_CADASTRO_STM')
-        ->select('MATRICULA, CPF')
+        ->select('MATRICULA, CPFCNPJ')
         ->where([
             ['MATRICULA', '=', $matricula],
-            ['CPF', '=', $cpf]
+            ['CPFCNPJ', '=', $cpfcnpj]
     ]);
 
     $resultado = $query->count();
@@ -72,10 +72,10 @@ $app->post('/cadastrar', function (Request $request, Response $response){
     $data = $request->getParsedBody();
 
     $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
-    $cpf = preg_replace('/[^0-9]/', '', $data['CPF']);
+    $cpfcnpj = preg_replace('/[^0-9]/', '', $data['CPFCNPJ']);
     // Ou utilizar o id
     $cadastrado = Cadastro::where([
-        ['CPF', '=', $cpf],
+        ['CPFCNPJ', '=', $cpfcnpj],
         ['MATRICULA_IPTU', '=', $matricula],
         ['ANO', '=', date('Y')]
     ])->first();
@@ -94,7 +94,7 @@ $app->post('/cadastrar', function (Request $request, Response $response){
         }
 
         $cadastro->MATRICULA_IPTU = $matricula;
-        $cadastro->CPF = $cpf;
+        $cadastro->CPFCNPJ = $cpfcnpj;
         $cadastro->NOME_DECLARANTE = $data['NOME_DECLARANTE'];
         $cadastro->CPF_DECLARANTE = preg_replace('/[^0-9]/', '', $data['CPF_DECLARANTE']);
         $cadastro->FAIXA_GERACAO = $data['FAIXA_GERACAO'];
@@ -135,10 +135,10 @@ $app->post('/cadastrar', function (Request $request, Response $response){
 $app->post('/consultar', function (Request $request, Response $response){
     $data = $request->getParsedBody();
     $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
-    $cpf = preg_replace('/[^0-9]/', '', $data['CPF']);
+    $cpfcnpj = preg_replace('/[^0-9]/', '', $data['CPFCNPJ']);
     
     $cadastrado = Cadastro::where([
-        ['CPF', '=', $cpf],
+        ['CPFCNPJ', '=', $cpfcnpj],
         ['MATRICULA_IPTU', '=', $matricula]
     ])->where(function($q){
         $q->where('ANO', date('Y'))
@@ -152,10 +152,10 @@ $app->post('/consultar', function (Request $request, Response $response){
         $return = $cadastrado->toArray();
     }else{
         $query = Capsule::table('VW_CADASTRO_STM')
-            ->select(['MATRICULA', 'CPF', 'LOGRADOURO', 'TIPOLOGRADOURO', 'COMPLEMENTO', 'NUMERO', 'BAIRRO', 'CEP', 'CIDADE','TIPO_USO'])
+            ->select(['MATRICULA', 'CPFCNPJ', 'LOGRADOURO', 'TIPOLOGRADOURO', 'COMPLEMENTO', 'NUMERO', 'BAIRRO', 'CEP', 'CIDADE','TIPO_USO'])
             ->where([
             ['MATRICULA', '=', $matricula],
-            ['CPF', '=', $cpf]
+            ['CPFCNPJ', '=', $cpf]
         ]);
 
         $return = $query->get()[0];

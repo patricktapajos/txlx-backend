@@ -1,4 +1,4 @@
-# Taxa de Resíduos de Sólidos Domésticos
+# Taxa de Resíduos Sólidos Domésticos
 
 > Back-end para o sistema de declaração de resíduos sólidos domésticos. Link para o sistema http://chibarro.manaus.am.gov.br/trsd-back.
 
