@@ -20,8 +20,8 @@ $app->add(new JWT([
             "passthrough" => ["OPTIONS"]
         ]),
     ],
-    /*"path" => "/",
-    "passthrough" => ["/authtrsdtoken"],*/
+    //"path" => "/",
+    //"passthrough" => ["/authtrsdtoken"],
     "callback" => function ($request, $response, $arguments) use ($container) {
         $container["jwt"] = $arguments["decoded"];
     },

@@ -38,6 +38,32 @@ $app->get('/tipousoimovel', function (Request $request, Response $response) {
     return $response->withJson( $return );
 });
 
+
+$app->get('/geracaoresiduos/{TIPO_DOMICILIO}', function (Request $request, Response $response, array $args) {
+
+    $opcoes = [];
+    /* Tipo 2 é código para RESIDENCIAL */
+    if($args['TIPO_DOMICILIO'] == 2){
+        $opcoes = [
+            ['id'=>'UGRESPECIAL', 'descricao'=>'Imóveis com volume de geração potencial de até 10 litros de resíduos por dia'],
+            ['id'=>'UGR1', 'descricao'=>'Imóveis com volume de geração potencial de mais de 10 e até 20 litros de resíduos por dia'],
+            ['id'=>'UGR2', 'descricao'=>'Imóveis com volume de geração potencial de mais de 20 e até 30 litros de resíduos por dia'],
+            ['id'=>'UGR3', 'descricao'=>'Imóveis com volume de geração potencial de mais de 30 e até 60 litros de resíduos por dia'],
+            ['id'=>'UGR4', 'descricao'=>'Imóveis com volume de geração potencial de mais de 60 litros de resíduos por dia'],
+        ];
+    }else{
+        $opcoes = [
+            ['id'=>'UGR1', 'descricao'=>'Imóveis com volume de geração potencial de até 30 litros de resíduos por dia'],
+            ['id'=>'UGR2', 'descricao'=>'Imóveis com volume de geração potencial de mais de 30 e até 60 litros de resíduos por dia'],
+            ['id'=>'UGR3', 'descricao'=>'Imóveis com volume de geração potencial de mais de 60 e até 100 litros de resíduos por dia'],
+            ['id'=>'UGR4', 'descricao'=>'Imóveis com volume de geração potencial de mais de 100 e até 200 litros de resíduos por dia'],
+        ];
+    }
+    
+
+    return $response->withJson( $opcoes );
+});
+
 // Método para identificar o contribuinte na base de dados do STM
 $app->post('/identificar', function (Request $request, Response $response){
 
@@ -48,18 +74,21 @@ $app->post('/identificar', function (Request $request, Response $response){
     $cpfcnpj = preg_replace('/[^0-9]/', '', $data['CPFCNPJ']);
 
     $query = Capsule::table('VW_CADASTRO_STM')
-        ->select('MATRICULA, CPFCNPJ')
-        ->where([
-            ['MATRICULA', '=', $matricula],
-            ['CPFCNPJ', '=', $cpfcnpj]
-    ]);
+        ->select('MATRICULA','CPFCNPJ')
+        ->where('MATRICULA', '=', $matricula);
 
-    $resultado = $query->count();
+    $resultado = $query->get()[0];
 
-    if($resultado > 0){
-        $return['success'] = 1;
-    }else{
+    if(count($resultado) == 0){
         $return['msgErro'] = 'Registro(s) com estes dados não encontrado(s).';
+    }else{
+        if($resultado->cpfcnpj != $cpfcnpj){
+            $return['success'] = 0;
+            $return['msgErro'] = 
+                '<p>Este imóvel está vinculado a outro proprietário. Caso deseje alterar a titularidade clique no link: </p> <p><a target="_blank" href="https://semefatende.manaus.am.gov.br/inventario.php?id=130">Alteração de Titularidade</a></p>';
+        }else{
+            $return['success'] = 1;
+        }
     }
 
     return $response->withJson( $return );
@@ -155,10 +184,63 @@ $app->post('/consultar', function (Request $request, Response $response){
             ->select(['MATRICULA', 'CPFCNPJ', 'LOGRADOURO', 'TIPOLOGRADOURO', 'COMPLEMENTO', 'NUMERO', 'BAIRRO', 'CEP', 'CIDADE','TIPO_USO'])
             ->where([
             ['MATRICULA', '=', $matricula],
-            ['CPFCNPJ', '=', $cpf]
+            ['CPFCNPJ', '=', $cpfcnpj]
         ]);
 
         $return = $query->get()[0];
+    }
+
+    return $response->withJson( $return );
+
+});
+
+/*
+   Método para visualizar os dados cadastrados do contribuinte na base de dados
+ */
+
+$app->post('/visualizarDados', function (Request $request, Response $response){
+    $data = $request->getParsedBody();
+    $matricula = preg_replace('/[^0-9]/', '', $data['MATRICULA_IPTU']);
+    $cpfcnpj = preg_replace('/[^0-9]/', '', $data['CPFCNPJ']);
+    
+    $cadastrado = Cadastro::where([
+        ['CPFCNPJ', '=', $cpfcnpj],
+        ['MATRICULA_IPTU', '=', $matricula]
+    ])->where(function($q){
+        $q->where('ANO', date('Y'))
+        ->orWhere('ANO', date('Y')-1);
+    })->first();
+
+    $return = null;
+
+    //Se encontra não registro na base de dados do TRSD, retorna dados do STM 
+    if($cadastrado){
+        $return = $cadastrado->toArray();
+
+        if($return['tipo_uso'] == 2){
+            $opcoes = [
+                'UGRESPECIAL'=>'Imóveis com volume de geração potencial de até 10 litros de resíduos por dia',
+                'UGR1'=>'Imóveis com volume de geração potencial de mais de 10 e até 20 litros de resíduos por dia',
+                'UGR2'=>'Imóveis com volume de geração potencial de mais de 20 e até 30 litros de resíduos por dia',
+                'UGR3'=>'Imóveis com volume de geração potencial de mais de 30 e até 60 litros de resíduos por dia',
+                'UGR4'=>'Imóveis com volume de geração potencial de mais de 60 litros de resíduos por dia',
+            ];
+        }else{
+            $opcoes = [
+                'UGR1'=>'Imóveis com volume de geração potencial de até 30 litros de resíduos por dia',
+                'UGR2'=>'Imóveis com volume de geração potencial de mais de 30 e até 60 litros de resíduos por dia',
+                'UGR3'=>'Imóveis com volume de geração potencial de mais de 60 e até 100 litros de resíduos por dia',
+                'UGR4'=>'Imóveis com volume de geração potencial de mais de 100 e até 200 litros de resíduos por dia',
+            ];
+        }
+
+        $return['faixa_geracao'] = $opcoes[$return['faixa_geracao']];
+
+        if($return['tipo_uso'] == 2){
+            $return['tipo_uso'] = 'Residencial';
+        }else{
+            $return['tipo_uso'] = 'Misto';
+        }
     }
 
     return $response->withJson( $return );

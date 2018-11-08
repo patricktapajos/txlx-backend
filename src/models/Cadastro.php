@@ -4,7 +4,7 @@
 		public $timestamps = false;
 		public $rules = [
 			'MATRICULA_IPTU' => 'required',
-			'CPF' => 'required',
+			'CPFCNPJ' => 'required',
 			'NOME_DECLARANTE' => 'required',
 			'CPF_DECLARANTE' => 'required',
 			'FAIXA_GERACAO' => 'required',
@@ -13,7 +13,7 @@
 		];
 		public $messages = [
 			'MATRICULA_IPTU.required' => 'Matrícula obrigatória',
-			'CPF.required' => 'CPF obrigratório',
+			'CPFCNPJ.required' => 'CPF do Contribuinte obrigratório',
 			'NOME_DECLARANTE.required' => 'Nome do Declarante obrigatório',
 			'CPF_DECLARANTE.required' => 'CPF do Declarante obrigatório',
 			'FAIXA_GERACAO.required' => 'Faixa de Geração obrigatória',
@@ -22,7 +22,7 @@
 		];
 		protected $fillable = [
 			'MATRICULA_IPTU',
-			'CPF',
+			'CPFCNPJ',
 			'NOME_DECLARANTE',
 			'CPF_DECLARANTE',
 			'FAIXA_GERACAO',
