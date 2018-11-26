@@ -243,7 +243,7 @@ $app->post('/visualizarDados', function (Request $request, Response $response){
         if($return['tipo_uso'] == 2){
             $return['tipo_uso'] = 'Residencial';
         }else{
-            $return['tipo_uso'] = 'Misto';
+            $return['tipo_uso'] = 'Não Residencial';
         }
     }
 

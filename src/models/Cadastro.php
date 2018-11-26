@@ -37,7 +37,8 @@
 			'CEP',
 			'CIDADE',
 			'DATA_CADASTRO',
-			'ANO'
+			'ANO',
+			'CODIGO_COMPROVANTE'
 		];
 
 		protected $casts = [
@@ -57,6 +58,7 @@
 			'CEP'=>'string',
 			'CIDADE'=>'string',
 			'DATA_CADASTRO',
-			'ANO'=>'int'
+			'ANO'=>'int',
+			'CODIGO_COMPROVANTE'=>'string'
 		];
 	}
