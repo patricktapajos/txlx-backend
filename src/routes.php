@@ -45,20 +45,19 @@ $app->get('/geracaoresiduos/{TIPO_DOMICILIO}', function (Request $request, Respo
     /* Tipo 2 é código para RESIDENCIAL */
     if($args['TIPO_DOMICILIO'] == 2){
         $opcoes = [
-            ['id'=>'URG0','descricao'=>'Não gerador de Resíduos'],
-            ['id'=>'UGRESPECIAL', 'descricao'=>'Imóveis com volume de geração potencial de até 10 litros de resíduos por dia'],
-            ['id'=>'UGR1', 'descricao'=>'Imóveis com volume de geração potencial de mais de 10 e até 20 litros de resíduos por dia'],
-            ['id'=>'UGR2', 'descricao'=>'Imóveis com volume de geração potencial de mais de 20 e até 30 litros de resíduos por dia'],
-            ['id'=>'UGR3', 'descricao'=>'Imóveis com volume de geração potencial de mais de 30 e até 60 litros de resíduos por dia'],
-            ['id'=>'UGR4', 'descricao'=>'Imóveis com volume de geração potencial de mais de 60 litros de resíduos por dia'],
+            ['id'=>'UGRESPECIAL', 'descricao'=>'Geração de 0 a 10 litros de resíduos por dia'],
+            ['id'=>'UGR1', 'descricao'=>'Geração de 10 a 20 litros de resíduos por dia'],
+            ['id'=>'UGR2', 'descricao'=>'Geração de 20 a 30 litros de resíduos por dia'],
+            ['id'=>'UGR3', 'descricao'=>'Geração de 30 a 60 litros de resíduos por dia'],
+            ['id'=>'UGR4', 'descricao'=>'Geração de 60 litros ou mais de resíduos por dia'],
         ];
     }else{
         $opcoes = [
             ['id'=>'URG0','descricao'=>'Não gerador de Resíduos'],
-            ['id'=>'UGR1', 'descricao'=>'Imóveis com volume de geração potencial de até 30 litros de resíduos por dia'],
-            ['id'=>'UGR2', 'descricao'=>'Imóveis com volume de geração potencial de mais de 30 e até 60 litros de resíduos por dia'],
-            ['id'=>'UGR3', 'descricao'=>'Imóveis com volume de geração potencial de mais de 60 e até 100 litros de resíduos por dia'],
-            ['id'=>'UGR4', 'descricao'=>'Imóveis com volume de geração potencial de mais de 100 e até 200 litros de resíduos por dia'],
+            ['id'=>'UGR1', 'descricao'=>'Geração de 30 litros de resíduos por dia'],
+            ['id'=>'UGR2', 'descricao'=>'Geração de 30 a 60 litros de resíduos por dia'],
+            ['id'=>'UGR3', 'descricao'=>'Geração de 60 a 100 litros de resíduos por dia'],
+            ['id'=>'UGR4', 'descricao'=>'Geração de 100 a 200 litros de resíduos por dia'],
         ];
     }
     
@@ -221,20 +220,19 @@ $app->post('/visualizarDados', function (Request $request, Response $response){
 
         if($return['tipo_uso'] == 2){
             $opcoes = [
-                'URG0'=>'Não gerador de Resíduos',                
-                'UGRESPECIAL'=>'Imóveis com volume de geração potencial de até 10 litros de resíduos por dia',
-                'UGR1'=>'Imóveis com volume de geração potencial de mais de 10 e até 20 litros de resíduos por dia',
-                'UGR2'=>'Imóveis com volume de geração potencial de mais de 20 e até 30 litros de resíduos por dia',
-                'UGR3'=>'Imóveis com volume de geração potencial de mais de 30 e até 60 litros de resíduos por dia',
-                'UGR4'=>'Imóveis com volume de geração potencial de mais de 60 litros de resíduos por dia',
+                'UGRESPECIAL'=>'Geração de 0 a 10 litros de resíduos por dia',
+                'UGR1'=>'Geração de 10 a 20 litros de resíduos por dia',
+                'UGR2'=>'Geração de 20 a 30 litros de resíduos por dia',
+                'UGR3'=>'Geração de 30 a 60 litros de resíduos por dia',
+                'UGR4'=>'Geração de 60 litros ou mais de resíduos por dia',
             ];
         }else{
             $opcoes = [
                 'URG0'=>'Não gerador de Resíduos',                
-                'UGR1'=>'Imóveis com volume de geração potencial de até 30 litros de resíduos por dia',
-                'UGR2'=>'Imóveis com volume de geração potencial de mais de 30 e até 60 litros de resíduos por dia',
-                'UGR3'=>'Imóveis com volume de geração potencial de mais de 60 e até 100 litros de resíduos por dia',
-                'UGR4'=>'Imóveis com volume de geração potencial de mais de 100 e até 200 litros de resíduos por dia',
+                'UGR1'=>'Geração de 0 a 30 litros de resíduos por dia',
+                'UGR2'=>'Geração de 30 a 60 litros de resíduos por dia',
+                'UGR3'=>'Geração de 60 a 100 litros de resíduos por dia',
+                'UGR4'=>'Geração de 100 a 200 litros de resíduos por dia',
             ];
         }
 
