@@ -1,38 +1,261 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <title>Slim 3</title>
-        <link href='//fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
-        <style>
-            body {
-                margin: 50px 0 0 0;
-                padding: 0;
-                width: 100%;
-                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-                text-align: center;
-                color: #aaa;
-                font-size: 18px;
-            }
+<!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
 
-            h1 {
-                color: #719e40;
-                letter-spacing: -3px;
-                font-family: 'Lato', sans-serif;
-                font-size: 100px;
-                font-weight: 200;
-                margin-bottom: 0;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Slim</h1>
-        <div>a microframework for PHP</div>
+<head>
 
-        <?php if (isset($name)) : ?>
-            <h2>Hello <?= htmlspecialchars($name); ?>!</h2>
-        <?php else: ?>
-            <p>Try <a href="http://www.slimframework.com">SlimFramework</a></p>
-        <?php endif; ?>
-    </body>
+    <!--- basic page needs
+   ================================================== -->
+    <meta charset="utf-8">
+    <title>TRSD - Declaração de Taxa de Resíduos Sólidos Domésticos</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+   ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+   ================================================== -->
+    <link rel="stylesheet" href="portal/css/base.css">
+    <link rel="stylesheet" href="portal/css/vendor.css">
+    <link rel="stylesheet" href="portal/css/main.css">
+
+    <!-- script
+   ================================================== -->
+    <script src="portal/js/modernizr.js"></script>
+    <script src="portal/js/pace.min.js"></script>
+
+    <!-- favicons
+	================================================== -->
+    <link rel="shortcut icon" href="portal/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="portal/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+  
+   <header id="header">   
+   		<div class="header-logo">
+            <img src="portal/images/logo_2017_2020.png" width="200" data-aos="fade-up">
+        </div> 
+        <nav id="header-nav-wrap">
+            <ul class="header-main-nav">
+                <li class="current"><a class="smoothscroll"  href="#declaracao" title="Como funciona a declaração">Como funciona a declaração</a></li>
+                <li class="current"><a href="<?= $url ?>" title="Efetuar a Declaração" class="stroke" target="_blank">Efetuar a Declaração</a></li>
+            </ul>
+        </nav>
+        <a class="header-menu-toggle" href="#"><span>Menu</span></a>    	
+   </header>  
+
+   <!-- home
+   ================================================== -->
+   <section id="home" data-parallax="scroll" data-image-src="portal/images/pontanegra2.jpg" data-natural-width=3000 data-natural-height=1600>
+
+        <div class="overlay"></div>
+        <div class="home-content">        
+            <div class="row contents">                     
+                <div class="home-content-left">
+                    
+
+                    <h3 data-aos="fade-up">Olá, contribuinte</h3>
+
+                    <h1 data-aos="fade-up">
+                        Escrevendo alguma coisa <br>
+                        para justficar e amenizar <br>
+                        a cobrança de mais uma taxa.
+                    </h1>
+                </div>
+
+                <!-- <div class="home-image-right">
+                    <img src="images/brasao.png" 
+                        srcset="images/brasao.png 1x"  
+                        data-aos="fade-up">
+                </div> -->
+            </div>
+
+        </div> <!-- end home-content -->
+
+   
+
+    </section> <!-- end home -->  
+
+
+    <!-- about
+    ================================================== -->
+    <section id="about">
+
+        <div class="row about-intro">
+
+            <div class="col-four">
+                <h1 class="intro-header" data-aos="fade-up">O que são resíduos sólidos domésticos?</h1>
+            </div>
+            <div class="col-eight">
+                <p class="lead" data-aos="fade-up">
+                    É um palavreado bonito pra lixo
+                </p>
+            </div>     
+            
+        </div>
+        <br>
+        <br>
+        <br>
+        
+        <div class="row about-intro">
+
+            <div class="col-eight">
+                <p class="lead" data-aos="fade-up">
+                    blá blá blá
+                </p>
+            </div> 
+            
+            <div class="col-four">
+                <h1 class="intro-header" data-aos="fade-up">Migué</h1>
+            </div>
+                
+        </div>
+
+
+        <div class="row about-how" id="declaracao">
+          
+            <h1 class="intro-header" data-aos="fade-up">Como a declaração funciona?</h1>           
+
+            <div class="about-how-content" data-aos="fade-up">
+                <div class="about-how-steps block-1-2 block-tab-full group">
+
+                    <div class="bgrid step" data-item="1">
+                        <h3>Identificação do Contribuinte</h3>
+                        <p>Insira a matrícula de IPTU do imóvel onde você reside e seu CPF (ou o CPF do proprietário do imóvel). 
+                        </p> 
+                    </div>
+
+                    <div class="bgrid step" data-item="2">
+                        <h3>Verificação dos dados</h3>
+                        <p>Verifique se os dados do imóvel estão corretos. Caso haja algum erro, procure a bíblia e reze. 
+                        </p> 
+                    </div>               
+               
+                    <div class="bgrid step" data-item="3">
+                        <h3>Formulário de Declaração</h3>
+                        <p>Informe a quantidade pessoas que moram com você e a quantidade de resíduos sólidos (o famigerado lixo) produzida. 
+                        </p> 
+                    </div>
+
+                    <div class="bgrid step" data-item="4">
+                        <h3>Impressão de comprovante</h3>
+                        <p>Pronto, agora já era, se lascou. 
+                        </p> 
+                    </div>  
+
+                </div>          
+
+           </div> <!-- end about-how-content -->
+
+            <div class="buttons text-center">
+                <a href="<?= $url ?>" target="_blank">
+                    <button class="button button-primary" type="button">Clique aqui para efetuar sua declaração</button>
+                </a>
+            </div>
+
+        </div> <!-- end about-how -->
+                                    
+    </section> <!-- end about -->  
+   
+
+    <!-- Testimonials Section
+    ================================================== -->
+    <section id="testimonials">
+
+        <div class="row">
+            <div class="col-twelve">
+                <h1 class="intro-header" data-aos="fade-up">Migué.</h1>
+            </div>   		
+        </div>   	
+
+        <div class="row owl-wrap">
+
+            <div id="testimonial-slider"  data-aos="fade-up">
+
+                <div class="slides owl-carousel">
+
+                    <div>
+                        <p>
+                        Your work is going to fill a large part of your life, and the only way to be truly satisfied is
+                        to do what you believe is great work. And the only way to do great work is to love what you do.
+                        If you haven't found it yet, keep looking. Don't settle. As with all matters of the heart, you'll know when you find it.
+                        </p> 
+
+                        <div class="testimonial-author">
+                                <img src="images/avatars/user-02.jpg" alt="Author image">
+                                <div class="author-info">
+                                    Steve Jobs
+                                    <span class="position">CEO, Apple.</span>
+                                </div>
+                        </div>                 
+                    </div> 
+
+                    <div>
+                        <p>
+                        This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
+                        Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
+                        nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.    
+                        </p>
+
+                        <div class="testimonial-author">
+                                <img src="images/avatars/user-03.jpg" alt="Author image">
+                                <div class="author-info">
+                                    John Doe
+                                    <span>CEO, ABC Corp.</span>
+                                </div>
+                        </div>                                         
+                    </div> 
+
+                </div> <!-- end slides -->
+
+            </div> <!-- end testimonial-slider -->         
+            
+        </div> <!-- end flex-container -->
+
+    </section> <!-- end testimonials -->
+    
+    <!-- footer
+    ================================================== -->
+    <footer>
+
+      <div class="footer-bottom">
+        <img src="portal/images/brasao.png" width="64">
+      	<div class="row">
+      		<div class="col-twelve">
+	      		<div class="copyright">
+		         	<span>© Copyright SUBTI - Prefeitura de Manaus 2017.</span> 
+		         	<span>Baseado em <a href="http://www.styleshout.com/">styleshout</a></span>		         	
+		         </div>
+
+		         <div id="go-top">
+		            <a class="smoothscroll" title="VOltar para o topo" href="#top"><i class="icon-arrow-up"></i></a>
+		         </div>         
+	      	</div>
+
+      	</div> <!-- end footer-bottom -->     	
+
+      </div>
+
+    </footer>
+
+    <div id="preloader"> 
+    	<div id="loader"></div>
+    </div>  
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="portal/js/jquery-2.1.3.min.js"></script>
+    <script src="portal/js/plugins.js"></script>
+    <script src="portal/js/main.js"></script>
+
+</body>
+
 </html>
