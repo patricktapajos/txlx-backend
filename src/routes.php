@@ -14,7 +14,7 @@ use Firebase\JWT\JWT;
 require __DIR__ . '/../src/models/Cadastro.php';
 
 // Routes
-$app->get('/index', function (Request $request, Response $response, array $args) {
+$app->get('/portal', function (Request $request, Response $response, array $args) {
     $args['url'] = env('URL_CLIENT_DEFAULT', '');
     return $this->renderer->render($response, 'index.phtml', $args);
 });

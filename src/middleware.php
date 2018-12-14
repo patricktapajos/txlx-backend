@@ -14,7 +14,7 @@ $app->add(new JWT([
     "rules" => [
         new \Slim\Middleware\JwtAuthentication\RequestPathRule([
             "path" => "/",
-            "passthrough" => ["/authtrsdtoken","/index"]
+            "passthrough" => ["/authtrsdtoken","/portal"]
         ]),
         new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
             "passthrough" => ["OPTIONS"]
