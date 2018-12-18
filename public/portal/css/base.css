@@ -892,5 +892,24 @@ textarea {
   text-align: center;
 }
 
+.image-right {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  z-index: 500;
+  text-align: right;
+}
+
+.lead {
+  text-align: justify;
+}
+
+.orange {
+  background-color: #f8931f;
+  border-color: #f8931f;
+  color: #FFFFFF;
+}
+
 
 /*# sourceMappingURL=base.css.map */
