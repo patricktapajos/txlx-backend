@@ -894,11 +894,16 @@ textarea {
 
 .image-right {
   display: block;
-  position: absolute;
+  /*position: absolute;*/
   right: 0;
   top: 50%;
   z-index: 500;
   text-align: right;
+}
+
+@media (max-width: 425px) {
+.image-right {
+  display: none;
 }
 
 .lead {
