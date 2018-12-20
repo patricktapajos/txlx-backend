@@ -902,8 +902,9 @@ textarea {
 }
 
 @media (max-width: 425px) {
-.image-right {
-  display: none;
+  .image-right {
+    display: none;
+  }
 }
 
 .lead {
