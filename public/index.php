@@ -15,7 +15,6 @@ mb_regex_encoding('UTF-8');*/
 
 require __DIR__ . '/../vendor/autoload.php';
 
-session_start();
 $dotenv = new Dotenv\Dotenv( __DIR__ . '/../src'); 
 $dotenv->load();
 
