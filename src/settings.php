@@ -3,7 +3,7 @@ return [
     'settings' => [
         'displayErrorDetails' => env('DEBUG_MODE', false), // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
-        //"determineRouteBeforeAppMiddleware" => true,
+        "determineRouteBeforeAppMiddleware" => true,
         'routerCacheFile'=> __DIR__ . '/../logs/cache.php',
 
         // Renderer settings
