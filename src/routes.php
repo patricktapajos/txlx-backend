@@ -45,19 +45,19 @@ $app->get('/geracaoresiduos/{TIPO_DOMICILIO}', function (Request $request, Respo
     /* Tipo 2 é código para RESIDENCIAL */
     if($args['TIPO_DOMICILIO'] == 2){
         $opcoes = [
-            ['id'=>'UGRESPECIAL', 'descricao'=>'Geração de 0 a 10 litros de resíduos por dia'],
-            ['id'=>'UGR1', 'descricao'=>'Geração de 10 a 20 litros de resíduos por dia'],
-            ['id'=>'UGR2', 'descricao'=>'Geração de 20 a 30 litros de resíduos por dia'],
-            ['id'=>'UGR3', 'descricao'=>'Geração de 30 a 60 litros de resíduos por dia'],
-            ['id'=>'UGR4', 'descricao'=>'Geração de 60 litros ou mais de resíduos por dia'],
+            ['id'=>'UGRESPECIAL', 'descricao'=>'0 a 10 litros de resíduos por dia'],
+            ['id'=>'UGR1', 'descricao'=>'10 a 20 litros de resíduos por dia'],
+            ['id'=>'UGR2', 'descricao'=>'20 a 30 litros de resíduos por dia'],
+            ['id'=>'UGR3', 'descricao'=>'30 a 60 litros de resíduos por dia'],
+            ['id'=>'UGR4', 'descricao'=>'60 litros ou mais de resíduos por dia'],
         ];
     }else{
         $opcoes = [
             ['id'=>'URG0','descricao'=>'Não gerador de Resíduos'],
-            ['id'=>'UGR1', 'descricao'=>'Geração de 30 litros de resíduos por dia'],
-            ['id'=>'UGR2', 'descricao'=>'Geração de 30 a 60 litros de resíduos por dia'],
-            ['id'=>'UGR3', 'descricao'=>'Geração de 60 a 100 litros de resíduos por dia'],
-            ['id'=>'UGR4', 'descricao'=>'Geração de 100 a 200 litros de resíduos por dia'],
+            ['id'=>'UGR1', 'descricao'=>'30 litros de resíduos por dia'],
+            ['id'=>'UGR2', 'descricao'=>'30 a 60 litros de resíduos por dia'],
+            ['id'=>'UGR3', 'descricao'=>'60 a 100 litros de resíduos por dia'],
+            ['id'=>'UGR4', 'descricao'=>'100 a 200 litros de resíduos por dia'],
         ];
     }
     
