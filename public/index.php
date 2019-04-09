@@ -22,6 +22,12 @@ $dotenv->load();
 $settings = require __DIR__ . '/../src/settings.php';
 $app = new \Slim\App($settings);
 
+//Models
+require __DIR__ . '/../src/models/Cadastro.php';
+
+//Controllers
+require __DIR__ . '/../src/controller/CadastroController.php';
+
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';
 

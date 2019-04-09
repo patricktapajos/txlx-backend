@@ -18,3 +18,8 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+// Controllers
+$container['CadastroController'] = function($c) {
+    return new application\controller\CadastroController($c);
+};

@@ -1,5 +1,10 @@
 <?php 
-	class Cadastro extends Illuminate\Database\Eloquent\Model {
+	
+	namespace application\models;
+
+	use Illuminate\Database\Eloquent\Model;
+
+	class Cadastro extends Model {
 		protected $table = "TRSD_CADASTRO";
 		public $timestamps = false;
 		public $rules = [
