@@ -1,6 +1,5 @@
 # Taxa de Resíduos Sólidos Domésticos
 
-> Back-end para o sistema de declaração de resíduos sólidos domésticos. Link para o sistema http://chibarro.manaus.am.gov.br/trsd-back.
 
 ## Sobre o Sistema
 O sistema nomeado TRSD (Taxa de Resíduos Sólidos Domésticos) tem como objetivo obter dados da quantidade de resíduos sólidos gerados por um imóvel (residencial ou misto) para posterior taxação. É disponibilizado um formulário onde o contribuinte preenche alguns dados como seu endereço, o tipo de uso do imóvel que reside e a quantidade média de resíduos sólidos (lixo) que gera.
